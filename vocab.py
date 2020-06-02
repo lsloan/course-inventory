@@ -10,7 +10,6 @@ import pytz
 
 
 # Enum(s)
-
 class ValidJobName(Enum):
     """
     Each job name should be defined in ValidJobName.
@@ -19,7 +18,7 @@ class ValidJobName(Enum):
 
     COURSE_INVENTORY = 'course_inventory.inventory.run_course_inventory'
     MIVIDEO = 'mivideo.mivideo_extract.main'
-    CANVAS_ZOOM_MEETINGS = 'online_meetings.canvas_zoom_meetings.main'
+    CANVAS_LTI = 'lti_placements.canvas_placements.main'
 
 
 class ValidDataSourceName(Enum):
@@ -29,7 +28,7 @@ class ValidDataSourceName(Enum):
     """
 
     CANVAS_API = auto()
-    CANVAS_ZOOM_MEETINGS = auto()
+    CANVAS_LTI = auto()
     KALTURA_API = auto()
     UNIZIN_DATA_PLATFORM_EVENTS = auto()
     UNIZIN_DATA_WAREHOUSE = auto()
@@ -109,7 +108,7 @@ class DataSourceStatus:
         '''
         if (data_updated_at is None):
             self._data_updated_at = datetime.fromtimestamp(time.time(), pytz.UTC)
-        elif (type(data_updated_at) is not datetime): # pylint: disable=unidiomatic-typecheck
+        elif (type(data_updated_at) is not datetime):  # pylint: disable=unidiomatic-typecheck
             # Prevent use of pandas.Timestamp, which is incompatible with SQLAlchemy.
             # Note: This kind of type check may be unpythonic because it defeats duck typing.
             raise TypeError('data_updated_at must be of type datetime')
